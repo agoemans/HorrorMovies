@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="posterApp">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Horror Movies</title>   
+    <link type="text/css" rel="stylesheet" href="../css/style.css" >
+    
+  </head>
+  <body >
+  <div ng-controller="TitleController as TitleCntrl" id="QuestionContainer" >
+    
+      <h3 class="query" ng-click="TitleCntrl.getMovie()">What movie should I watch?</h3> 
+  
+    <div  id="ContentContainer" ng-model="TitleCntrl" ng-show="TitleCntrl.show" >
+      <div class="directorInfo">
+        <p id="director-main">{{TitleCntrl.movie.Director}}</p>
+        <p id="director-predicate" >PRESENTS</p>
+        <p id="mainactor">{{TitleCntrl.getMainActor()}} </p>
+        <p id="mainactor-conjuction">IN</p>
+          <p id="title">{{TitleCntrl.movie.Title}}</p>
+      </div>
+      
+
+      <div class="middle-box">
+        <div class="box-left">
+          <p id="summary">{{TitleCntrl.summary()}} </p>
+        </div>
+        
+        <div class="image-box" >
+
+          
+        </div>
+        <div class="box-right">
+          <div id="box-right-top">
+            <p id="rating">{{TitleCntrl.movie.Rated}}</p>
+          </div>
+          <div id="box-right-bottom">
+            <p id="score">{{TitleCntrl.imdbRating()}} </p>  
+          </div>
+        </div>
+        
+      </div>
+      
+      <div class="bottom-box">
+        <p id="stars-font">Co-starring</p><p id="stars">{{TitleCntrl.movie.Actors}} </p>  
+        <p id="writer-font"> * Written by</p><p id="writer">{{TitleCntrl.movie.Writer}}</p>  
+        <p id="released-font"> * Release date</p><p id="released">{{TitleCntrl.movie.Released}}</p>  
+      </div>
+
+    </div>    
+  </div>
+
+    <!--Libraries-->
+    <script src="bower_components/angular/angular.min.js"></script>
+    
+    <!--My own JS files-->
+    <script type="text/javascript" src="../js/helper.js"></script>
+    <script type="text/javascript" src="../js/movie_helper.js"></script>
+    <script type="text/javascript" src="../js/title_controller.js"></script>
+    <!--script type="text/javascript" src="js/_processnames.js"></script-->
+
+  </body>
+</html>

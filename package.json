@@ -1,0 +1,24 @@
+{
+  "name": "horror-movies",
+  "author": "agoemans",
+  "version": "1.1.0",
+  "description": "A poster generator which uses Typescript",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/agoemans/HorrorMovies.git"
+  },
+  "main": "Gruntfile.js",
+  "dependencies": {
+    "grunt": "^1.0.1",
+    "grunt-contrib-clean": "^1.1.0",
+    "grunt-contrib-connect": "^1.0.2",
+    "grunt-contrib-copy": "^1.0.0",
+    "grunt-contrib-uglify": "^3.0.1",
+    "grunt-contrib-watch": "^1.0.0",
+    "grunt-html-build": "^0.7.1"
+  },
+  "devDependencies": {
+    "angular": "^1.6.4"
+  }
+}
