@@ -22,7 +22,12 @@ module.exports = function (grunt) {
                 },
                 files: {
                     'tmp/compiled.js': ['node_modules/angular/angular.min.js',
+                        'js/data/movieData.js',
                         'js/app.js',
+                        'js/movieData.js',
+                        'js/movieFactory.js',
+                        'js/movieCreator.js',
+                        'js/movieService.js',
                         'js/helper.js',
                         'js/movie_helper.js',
                         'js/title_controller.js',

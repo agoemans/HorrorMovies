@@ -1,68 +1,86 @@
-(function() {
+(function () {
 
-	var posterApp = angular.module('posterApp', []);
+    var posterApp = angular.module('posterApp', ['MovieService']);
 
-	posterApp.controller('TitleController', function($scope){
-		this.movie = null;
-		this.show = false;
+    posterApp.controller('TitleController', function ($scope, MovieService) {
+        this.movie = null;
+        this.show = false;
+        $scope.status;
+        $scope.movies = [];
+        getMovies();
+
+        function getMovies () {
+            console.log('this.getmovies', MovieService);
+            MovieService.getMovies()
+                ._success(function (result) {
+                    $scope.movies = result;
+                })
+                // .success(function (result) {
+                //     $scope.movies = result;
+                // })
+                .error(function (error) {
+                    $scope.status = 'Unable to load customer data: ' + error.message;
+                });
+        };
+
+        this.getMovie = function () {
+            var movie = movieHelper.getRandom(this.movies);
+            this.movie = movie;
+            this.show = true;
+            console.log(this.movie);
+            $scope.$apply();
+        };
+
+        this.processSearch = function (searchTerm) {
+            var mainUrl = "http://www.omdbapi.com/";
+            mainUrl = mainUrl + "?i=" + searchTerm;
+            helper.call_HTTP(mainUrl, this.onJSONLoad, this);
+
+        };
 
 
-		this.getMovie = function(){			
-			var movieID = movieHelper.getGenre();
-			this.processSearch(movieID);	
-			
-		};
+        this.onJSONLoad = function (data) {
+            var obj = JSON.parse(data);
+            this.movie = obj;
+            this.show = true;
+            $scope.$apply();
 
-		this.processSearch = function (searchTerm){
-			var mainUrl = "http://www.omdbapi.com/";
-			mainUrl = mainUrl+"?i="+searchTerm;
-			helper.call_HTTP(mainUrl,this.onJSONLoad,this);
+        };
 
-		};
+        this.isInitialized = function () {
+            return !!this.movie;
+        };
 
+        this.getMainActor = function () {
+            if (!this.isInitialized())
+                return "";
 
-		this.onJSONLoad = function(data){
-			var obj = JSON.parse(data);			
-			this.movie = obj;
-			this.show = true;
-			$scope.$apply();
+            mainActor = this.movie.Actors.substring(0, this.movie.Actors.indexOf(","));
+            return mainActor;
+        };
 
-		};
+        this.summary = function () {
+            if (!this.isInitialized())
+                return "";
 
-		this.isInitialized = function(){
-			return !!this.movie;
-		}
+            return movieHelper.getSubplot(this.movie.Plot);
+        };
 
-		this.getMainActor = function(){
-			if(!this.isInitialized())
-				return "";
+        this.imdbRating = function () {
+            if (!this.isInitialized())
+                return "";
+            return movieHelper.getScore(this.movie.imdbRating);
+        }
 
-			mainActor = this.movie.Actors.substring(0, this.movie.Actors.indexOf(","));
-			return mainActor;
-		};
+        this.changeImage = function () {
+            var imageList = ['mask.png', 'cat.png', 'creep.png'];
+            var image;
+            image = helper.getRandomElement(imageList);
+            return image
+        }
 
-		this.summary = function(){
-			if(!this.isInitialized())
-				return "";
-
-			return movieHelper.getSubplot(this.movie.Plot);
-		};
-
-		this.imdbRating = function(){
-			if(!this.isInitialized())
-				return "";
-			return movieHelper.getScore(this.movie.imdbRating);
-		}	
-
-		this.changeImage = function(){
-			var imageList =['mask.png', 'cat.png', 'creep.png'];
-			var image;
-			image = helper.getRandomElement(imageList);
-			return  image
-		}
-
-		this.getMovie();
-});
+        this.getMovie();
+    });
 
 
 })();
