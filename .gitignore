@@ -8,3 +8,7 @@ static/images/
 /npm-debug.log
 
 node_modules/
+
+.idea
+
+*.xml
