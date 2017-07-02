@@ -1,5 +1,5 @@
-var movieService = angular.module('MovieService', []);
-movieService.factory('MovieDataOp', function () {
+var MovieService = angular.module('MovieService2', []);
+MovieService.factory('MovieDataOp2', function () {
     return {
         getMovies: function(){
             return movieCreator.create();

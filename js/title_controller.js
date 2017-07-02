@@ -1,86 +1,92 @@
 (function () {
+    var posterApp = angular.module('posterApp', [])
 
-    var posterApp = angular.module('posterApp', ['MovieService']);
+        .service('movieService', function () {
+            var promise = new Promise(function(resolve, reject){
+                var movieList = movieCreator.create();
+                if(movieList && movieList.length > 1){
+                    resolve(movieList)
+                } else {
+                    reject(Error('There is no movie list, create one!'))
+                }
+            });
+            return promise;
+        })
 
-    posterApp.controller('TitleController', function ($scope, MovieService) {
-        this.movie = null;
-        this.show = false;
-        $scope.status;
-        $scope.movies = [];
-        getMovies();
+        .controller('TitleController', function ($scope, movieService) {
+            this.movie = null;
+            this.show = false;
+            $scope.status;
+            $scope.movies = [];
+            getMovies();
 
-        function getMovies () {
-            console.log('this.getmovies', MovieService);
-            MovieService.getMovies()
-                ._success(function (result) {
-                    $scope.movies = result;
+            function getMovies() {
+                console.log('this.getmovies', movieService);
+                movieService.then(function(result){
+                    $scope.movies = result
+                }, function(err){
+                    console.log(err);
                 })
-                // .success(function (result) {
-                //     $scope.movies = result;
-                // })
-                .error(function (error) {
-                    $scope.status = 'Unable to load customer data: ' + error.message;
-                });
-        };
+            };
 
-        this.getMovie = function () {
-            var movie = movieHelper.getRandom(this.movies);
-            this.movie = movie;
-            this.show = true;
-            console.log(this.movie);
-            $scope.$apply();
-        };
+            this.getMovie = function () {
+                var movie = movieHelper.getRandom(this.movies);
+                this.movie = movie;
+                this.show = true;
+                console.log(this.movie);
+                $scope.$apply();
+            };
 
-        this.processSearch = function (searchTerm) {
-            var mainUrl = "http://www.omdbapi.com/";
-            mainUrl = mainUrl + "?i=" + searchTerm;
-            helper.call_HTTP(mainUrl, this.onJSONLoad, this);
+            this.processSearch = function (searchTerm) {
+                var mainUrl = "http://www.omdbapi.com/";
+                mainUrl = mainUrl + "?i=" + searchTerm;
+                helper.call_HTTP(mainUrl, this.onJSONLoad, this);
 
-        };
+            };
 
 
-        this.onJSONLoad = function (data) {
-            var obj = JSON.parse(data);
-            this.movie = obj;
-            this.show = true;
-            $scope.$apply();
+            this.onJSONLoad = function (data) {
+                var obj = JSON.parse(data);
+                this.movie = obj;
+                this.show = true;
+                $scope.$apply();
 
-        };
+            };
 
-        this.isInitialized = function () {
-            return !!this.movie;
-        };
+            this.isInitialized = function () {
+                return !!this.movie;
+            };
 
-        this.getMainActor = function () {
-            if (!this.isInitialized())
-                return "";
+            this.getMainActor = function () {
+                if (!this.isInitialized())
+                    return "";
 
-            mainActor = this.movie.Actors.substring(0, this.movie.Actors.indexOf(","));
-            return mainActor;
-        };
+                mainActor = this.movie.Actors.substring(0, this.movie.Actors.indexOf(","));
+                return mainActor;
+            };
 
-        this.summary = function () {
-            if (!this.isInitialized())
-                return "";
+            this.summary = function () {
+                if (!this.isInitialized())
+                    return "";
 
-            return movieHelper.getSubplot(this.movie.Plot);
-        };
+                return movieHelper.getSubplot(this.movie.Plot);
+            };
 
-        this.imdbRating = function () {
-            if (!this.isInitialized())
-                return "";
-            return movieHelper.getScore(this.movie.imdbRating);
-        }
+            this.imdbRating = function () {
+                if (!this.isInitialized())
+                    return "";
+                return movieHelper.getScore(this.movie.imdbRating);
+            }
 
-        this.changeImage = function () {
-            var imageList = ['mask.png', 'cat.png', 'creep.png'];
-            var image;
-            image = helper.getRandomElement(imageList);
-            return image
-        }
+            this.changeImage = function () {
+                var imageList = ['mask.png', 'cat.png', 'creep.png'];
+                var image;
+                image = helper.getRandomElement(imageList);
+                return image
+            }
 
-        this.getMovie();
-    });
+            this.getMovie();
+        });
 
 
 })();
