@@ -16,17 +16,17 @@
   
     <div  id="ContentContainer" ng-model="TitleCntrl" ng-show="TitleCntrl.show" >
       <div class="directorInfo">
-        <p id="director-main">{{TitleCntrl.movie.Director}}</p>
+        <p id="director-main">{{TitleCntrl.movie.director}}</p>
         <p id="director-predicate" >PRESENTS</p>
-        <p id="mainactor">{{TitleCntrl.getMainActor()}} </p>
+        <p id="mainactor">{{TitleCntrl.movie.mainActor}} </p>
         <p id="mainactor-conjuction">IN</p>
-          <p id="title">{{TitleCntrl.movie.Title}}</p>
+          <p id="title">{{TitleCntrl.movie.name}}</p>
       </div>
       
 
       <div class="middle-box">
         <div class="box-left">
-          <p id="summary">{{TitleCntrl.summary()}} </p>
+          <p id="summary">{{TitleCntrl.movie.tagline}} </p>
         </div>
         
         <div class="image-box" >
@@ -35,19 +35,16 @@
         </div>
         <div class="box-right">
           <div id="box-right-top">
-            <p id="rating">{{TitleCntrl.movie.Rated}}</p>
-          </div>
-          <div id="box-right-bottom">
-            <p id="score">{{TitleCntrl.imdbRating()}} </p>  
+            <p id="rating">{{TitleCntrl.movie.rating}}</p>
           </div>
         </div>
         
       </div>
       
       <div class="bottom-box">
-        <p id="stars-font">Co-starring</p><p id="stars">{{TitleCntrl.movie.Actors}} </p>  
-        <p id="writer-font"> * Written by</p><p id="writer">{{TitleCntrl.movie.Writer}}</p>  
-        <p id="released-font"> * Release date</p><p id="released">{{TitleCntrl.movie.Released}}</p>  
+        <p id="stars-font">Co-starring</p><p id="stars">{{TitleCntrl.movie.coStars}} </p>
+        <p id="writer-font"> * Written by</p><p id="writer">{{TitleCntrl.movie.writer}}</p>
+        <p id="released-font"> * Release date</p><p id="released">{{TitleCntrl.movie.releaseDate}}</p>
       </div>
 
     </div>    
