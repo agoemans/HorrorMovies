@@ -3,7 +3,7 @@
 
         .service('movieService', function () {
             var promise = new Promise(function(resolve, reject){
-                var movieList = movieCreator.create();
+                var movieList = movieCreator.getMovies();
                 if(movieList && movieList.length > 1){
                     resolve(movieList)
                 } else {
