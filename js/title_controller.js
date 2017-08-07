@@ -1,5 +1,5 @@
 (function () {
-    var posterApp = angular.module('posterApp', [])
+    var posterApp = angular.module('posterApp', ['components'])
 
         .service('movieService', function () {
             var promise = new Promise(function(resolve, reject){
@@ -35,7 +35,7 @@
                 var movie = movieHelper.getRandom($scope.movies);
                 titleController.movie = movie;
                 titleController.show = true;
-                $scope.$apply();
+                //$scope.$apply();
             };
 
             titleController.isInitialized = function () {

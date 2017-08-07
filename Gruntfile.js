@@ -24,6 +24,7 @@ module.exports = function (grunt) {
                     'tmp/compiled.js': ['node_modules/angular/angular.min.js',
                         'js/data/movieData.js',
                         'js/app.js',
+                        'js/components.js',
                         'js/movieData.js',
                         'js/movieFactory.js',
                         'js/movieCreator.js',

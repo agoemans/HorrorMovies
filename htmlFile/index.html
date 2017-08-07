@@ -13,7 +13,8 @@
   <div ng-controller="TitleController as TitleCntrl" id="QuestionContainer" >
     
       <h3 class="query" ng-click="TitleCntrl.getMovie()">What movie should I watch?</h3> 
-  
+
+    <pane></pane>
     <div  id="ContentContainer" ng-model="TitleCntrl" ng-show="TitleCntrl.show" >
       <div class="directorInfo">
         <p id="director-main">{{TitleCntrl.movie.director}}</p>
